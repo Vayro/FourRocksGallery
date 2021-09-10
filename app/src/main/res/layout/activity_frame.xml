@@ -46,6 +46,16 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:drawableTop="@drawable/ic_baseline_select_all_24"
+                android:background="?android:attr/windowBackground"
+                android:text="SELECTED" />
+
+            <Button
+                android:id="@+id/buttonSelected"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:drawableTop="@drawable/ic_baseline_photo_album_24"
                 android:background="?android:attr/windowBackground"
                 android:text="Gallery" />
