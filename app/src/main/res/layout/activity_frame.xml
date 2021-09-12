@@ -41,7 +41,7 @@
                 android:text="Camera" />
 
             <Button
-                android:id="@+id/buttonGallery"
+                android:id="@+id/buttonSelected"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -51,7 +51,7 @@
                 android:text="SELECTED" />
 
             <Button
-                android:id="@+id/buttonSelected"
+                android:id="@+id/buttonGallery"
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
                 android:layout_weight="1"

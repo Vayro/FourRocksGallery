@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Four Rocks Gallery</string>
+    <string name="app_name">FourSnap</string>
     <string name="title_activity_frame">FrameActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
