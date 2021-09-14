@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
       toFrameActivity();
 
 
-//test test test
+      //test test test
 
 
 
@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     //to main frame activity
     public void toFrameActivity() {
-       // historyString = loadLog();
         Intent intent = new Intent(this, FrameActivity.class);
-      //  intent.putExtra("log", historyString);
-        //intent.putExtra("filename", FILE_NAME);
         startActivity(intent);
     }
+
+
+
 
 
 

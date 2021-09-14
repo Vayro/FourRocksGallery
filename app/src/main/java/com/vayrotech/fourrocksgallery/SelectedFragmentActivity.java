@@ -1,6 +1,7 @@
 package com.vayrotech.fourrocksgallery;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class SelectedFragmentActivity extends Fragment {
 
     View view;
     ImageView selectedImage;
-    Bitmap passedImageFrag;
+    Uri passedImageFrag;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,7 +101,7 @@ public class SelectedFragmentActivity extends Fragment {
 
         //created stuff goes here
         selectedImage = getView().findViewById(R.id.selectedView);
-        selectedImage.setImageBitmap(passedImageFrag);
+        selectedImage.setImageURI(passedImageFrag);
 
 
     }
