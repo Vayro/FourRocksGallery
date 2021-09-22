@@ -185,6 +185,25 @@ public class FrameActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 File f = new File(currentPhotoPath);
                 selectedImage = Uri.fromFile(f);
+                Toast.makeText(this,"Saved file to " + Uri.fromFile(f),Toast.LENGTH_SHORT).show();
+
+
+                //galleryAddPic()
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri = Uri.fromFile(f);
+                mediaScanIntent.setData(contentUri);
+                this.sendBroadcast(mediaScanIntent);
+
+
+
+
+
+
+
+
+
+                //move to SelectedFragment upon leaving camera
+                replaceFragment(new SelectedFragmentActivity());
 
 
             }
@@ -207,14 +226,15 @@ public class FrameActivity extends AppCompatActivity {
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        String imageFileName = "PNG_" + timeStamp + "_";
+        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+       File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".png",         /* suffix */
                 storageDir      /* directory */
         );
-
+`       
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
