@@ -227,8 +227,8 @@ public class FrameActivity extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "PNG_" + timeStamp + "_";
-       // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //temp savong location
-       File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+       // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //temp saving location
+       File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); //External/Public directory
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".png",         /* suffix */

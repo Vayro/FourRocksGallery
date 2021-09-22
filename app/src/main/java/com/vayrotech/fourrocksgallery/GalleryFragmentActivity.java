@@ -1,22 +1,35 @@
 package com.vayrotech.fourrocksgallery;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GalleryFragmentActivity extends Fragment {
 
 
     View view;
-
+    List<Cell> allFilesPaths;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -43,6 +56,8 @@ public class GalleryFragmentActivity extends Fragment {
      * @return A new instance of fragment ScheduleFragment.
      */
     // TODO: Rename and change types and number of parameters
+
+
     public static GalleryFragmentActivity newInstance(String param1, String param2) {
         GalleryFragmentActivity fragment = new GalleryFragmentActivity();
         Bundle args = new Bundle();
@@ -55,6 +70,8 @@ public class GalleryFragmentActivity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -67,7 +84,6 @@ public class GalleryFragmentActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.activity_gallery_fragment, container, false);
         return view;
     }
@@ -78,8 +94,124 @@ public class GalleryFragmentActivity extends Fragment {
 
         //created stuff goes here
 
+        //for the storage permission
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M &&
+
+                ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
+        } else
+
+        {
+            //show the images
+            Toast.makeText(getActivity(), "images loading", Toast.LENGTH_SHORT).show();
+            showImages();
+        }
+
+
+
+
+
+
+
+
+
+
 
     }
+
+
+
+
+
+//Gallery Main Processes
+
+    // this shows the images on the screen
+    private void showImages() {
+        //this is the folder with all the images
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures";
+        allFilesPaths = new ArrayList<>();
+        allFilesPaths = listAllFiles(path);
+
+        RecyclerView recyclerView = (RecyclerView)  getView().findViewById(R.id.gallery);
+        recyclerView.setHasFixedSize(true);
+
+        //this makes a list with 3 columns
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 3);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //optimizations
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+        ArrayList<Cell> Cells = prepareData();
+        MyAdapter adapter = new MyAdapter(getActivity().getApplicationContext(), Cells);
+        recyclerView.setAdapter(adapter);
+    }
+
+    //prepare the images for the list
+    private ArrayList<Cell> prepareData() {
+        ArrayList<Cell> allImages = new ArrayList<>();
+        for (Cell c : allFilesPaths) {
+            Cell cell = new Cell();
+            cell.setTitle(c.getTitle());
+            cell.setPath(c.getPath());
+            allImages.add(cell);
+
+        }
+        return allImages;
+    }
+
+    //loads all the files from the folder
+    private List<Cell> listAllFiles(String pathName) {
+        List<Cell> allFiles = new ArrayList<>();
+        File file = new File(pathName);
+        File[] files = file.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                Cell cell = new Cell();
+                cell.setTitle(f.getName());
+                cell.setPath(f.getAbsolutePath());
+                allFiles.add(cell);
+            }
+        }
+        return allFiles;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == 1000) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //show the images
+                showImages();
+            } else {
+                Toast.makeText(getActivity(), "Permission not granted!", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
