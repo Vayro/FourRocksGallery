@@ -130,7 +130,8 @@ public class GalleryFragmentActivity extends Fragment {
     // this shows the images on the screen
     private void showImages() {
         //this is the folder with all the images
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Images/";
+        //String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/";
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(); //External/Public directory
         allFilesPaths = new ArrayList<>();
         allFilesPaths = listAllFiles(path);
 
