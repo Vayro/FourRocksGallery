@@ -5,19 +5,15 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_light"
     tools:context=".GalleryFragmentActivity">
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/buttonGallery"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-
     </androidx.recyclerview.widget.RecyclerView>
 
 
-</androidx.recyclerview.widget.RecyclerView>
+
 </FrameLayout>
