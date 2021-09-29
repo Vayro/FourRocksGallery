@@ -15,7 +15,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
@@ -299,12 +298,17 @@ public class FrameActivity extends AppCompatActivity {
 
     //end camera stuff ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public interface FragmentChangeListener{
+
+        void replaceFragment(Fragment fragment);
+
+    }
 
 
     //load fragment
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
 
-
+        Toast.makeText(this,"replacing fragment",Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putParcelable("passedImage", selectedImage);
         fragment.setArguments(bundle);

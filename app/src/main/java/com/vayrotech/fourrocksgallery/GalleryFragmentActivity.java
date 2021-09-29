@@ -1,6 +1,7 @@
 package com.vayrotech.fourrocksgallery;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -198,6 +199,7 @@ public class GalleryFragmentActivity extends Fragment {
 
 
 
+    //In your fragment - call this method from onClickListener
 
 
 

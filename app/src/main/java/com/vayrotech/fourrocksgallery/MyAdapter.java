@@ -2,7 +2,10 @@ package com.vayrotech.fourrocksgallery;
 //lists all the MF images in RecycleView
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
@@ -46,6 +50,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 //send to selected from here
                 Toast.makeText(context, "image clicked " + galleryList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
 
+                Uri uri = Uri.parse(galleryList.get(i).getPath());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("passedImage", uri);
+
+                SelectedFragmentActivity SelectedFragmentActivity = new SelectedFragmentActivity();
+                SelectedFragmentActivity.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, SelectedFragmentActivity).addToBackStack(null).commit();
+
+
+
             }
         });
     }
@@ -76,6 +92,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
 
     }
+
+
+
+
+
+
+
+
+
 
 
 
