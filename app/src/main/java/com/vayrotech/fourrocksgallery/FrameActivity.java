@@ -308,7 +308,7 @@ public class FrameActivity extends AppCompatActivity {
     //load fragment
     public void replaceFragment(Fragment fragment) {
 
-        Toast.makeText(this,"replacing fragment",Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this,"replacing fragment",Toast.LENGTH_SHORT).show(); <------this dubugging toast message is no longer needed
         Bundle bundle = new Bundle();
         bundle.putParcelable("passedImage", selectedImage);
         fragment.setArguments(bundle);

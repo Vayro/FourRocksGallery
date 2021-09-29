@@ -1,6 +1,7 @@
 package com.vayrotech.fourrocksgallery;
 //lists all the MF images in RecycleView
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -41,16 +42,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setImageFromPath(galleryList.get(i).getPath(), viewHolder.img);
         viewHolder.img.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //send to selected from here
-                Toast.makeText(context, "image clicked " + galleryList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
+                //Following toast shows full path
+                Toast.makeText(context, galleryList.get(i).getPath(), Toast.LENGTH_SHORT).show();
+                //Set the path of the photo picked in gallery to a Uri object
 
                 Uri uri = Uri.parse(galleryList.get(i).getPath());
+
+
+                //bundle URI and change fragment
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("passedImage", uri);
 

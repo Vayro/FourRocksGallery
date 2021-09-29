@@ -86,7 +86,8 @@ public class SelectedFragmentActivity extends Fragment {
                              Bundle savedInstanceState) {
 
       passedImageFrag = this.getArguments().getParcelable("passedImage");
-
+      FrameActivity penIsland = (FrameActivity)getActivity();
+      penIsland.selectedImage = passedImageFrag;
 
 
 
