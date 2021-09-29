@@ -116,8 +116,8 @@ public class FrameActivity extends AppCompatActivity {
 
 
 
-
-
+        //starts app with galleryFragment
+        replaceFragment(new GalleryFragmentActivity());
 
 
 

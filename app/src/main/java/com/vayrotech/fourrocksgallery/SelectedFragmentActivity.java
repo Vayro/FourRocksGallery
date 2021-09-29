@@ -86,6 +86,8 @@ public class SelectedFragmentActivity extends Fragment {
                              Bundle savedInstanceState) {
 
       passedImageFrag = this.getArguments().getParcelable("passedImage");
+
+      //this takes whatever URI that was passed to this fragment and updates the selectedImage variable in the frameActivity so that if you leave this fragment and come back, the selectedImage will remain as the last image selected
       FrameActivity penIsland = (FrameActivity)getActivity();
       penIsland.selectedImage = passedImageFrag;
 
