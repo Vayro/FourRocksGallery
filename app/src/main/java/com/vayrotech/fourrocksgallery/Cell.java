@@ -1,6 +1,8 @@
 package com.vayrotech.fourrocksgallery;
 
-public class Cell {
+import java.util.Collection;
+
+public class Cell implements Comparable< Cell >{
     private String title, path, date;
 
     public String getTitle() {
@@ -37,6 +39,12 @@ public class Cell {
     return title + " | " + date + " | " + path;
 
 }
+
+//start programming sorting shit
+    public int compareTo(Cell c){
+        return this.getDate().compareTo(c.getDate());
+
+    }
 
 
 }

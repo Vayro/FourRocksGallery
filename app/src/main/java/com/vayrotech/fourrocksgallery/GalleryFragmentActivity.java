@@ -26,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class GalleryFragmentActivity extends Fragment {
         {
             //show the images
             Toast.makeText(getActivity(), "images loading", Toast.LENGTH_SHORT).show();
-            showImages();
+            showImages("");
         }
 
 
@@ -132,12 +134,34 @@ public class GalleryFragmentActivity extends Fragment {
 //Gallery Main Processes
 
     // this shows the images on the screen
-    private void showImages() {
+    private void showImages(String sort) {
         //this is the folder with all the images
         //String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/";
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(); //External/Public directory
         allFilesPaths = new ArrayList<>();
         allFilesPaths = listAllFiles(path);
+
+
+
+        switch(sort) {
+            case "dateA":
+                Collections.sort(allFilesPaths);
+                break;
+            case "dateD":
+                Collections.sort(allFilesPaths, Collections.reverseOrder());
+                break;
+
+
+        }
+
+
+
+
+
+
+
+
+
         Log.d("test", "test");
         Log.d("list", allFilesPaths.toString());
 
@@ -199,7 +223,7 @@ public class GalleryFragmentActivity extends Fragment {
         if (requestCode == 1000) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //show the images
-                showImages();
+                showImages("");
             } else {
                 Toast.makeText(getActivity(), "Permission not granted!", Toast.LENGTH_SHORT).show();
 
@@ -219,21 +243,25 @@ public class GalleryFragmentActivity extends Fragment {
                 //sort date ascending stuff here
 
                 Toast.makeText(getActivity(), "Sorted by date (ascending)!", Toast.LENGTH_SHORT).show();
+                showImages("dateA");
                 return true;
             case R.id.dateDescending:
                 //sort date descending stuff here
 
                 Toast.makeText(getActivity(), "Sorted by reverse date (descending)!", Toast.LENGTH_SHORT).show();
+                showImages("dateD");
                 return true;
             case R.id.nameAscending:
                 //sort name ascending stuff here
 
                 Toast.makeText(getActivity(), "Sorted by name (ascending)!", Toast.LENGTH_SHORT).show();
+                showImages("nameA");
                 return true;
             case R.id.nameDescending:
                 //sort name descending stuff here
 
                 Toast.makeText(getActivity(), "Sorted by name (descending)!", Toast.LENGTH_SHORT).show();
+                showImages("nameD");
                 return true;
 
         }

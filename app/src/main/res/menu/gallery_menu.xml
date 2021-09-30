@@ -8,7 +8,7 @@
         <menu>
             <item
                 android:id="@+id/dateAscending"
-                android:title="Date/time (Ascending)" />
+                android:title="Date/Time (Ascending)" />
             <item
                 android:id="@+id/dateDescending"
                 android:title="Date/Time (Descending)" />
