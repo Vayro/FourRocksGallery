@@ -104,13 +104,21 @@ public class FrameActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.selectedMenu:
                 toSelectedFrag();
-                break;
+                return true;
             case R.id.galleryMenu:
                 toGalleryFrag();
-                break;
+                return true;
             case R.id.cameraMenu:
                 askCameraPermissions();
-                break;
+                return true;
+
+            case R.id.dateAscending:
+            case R.id.dateDescending:
+            case R.id.nameAscending:
+            case R.id.nameDescending:
+                return false;
+
+
         }
 return true;
 

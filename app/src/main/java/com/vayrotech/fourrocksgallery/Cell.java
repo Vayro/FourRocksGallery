@@ -1,7 +1,7 @@
 package com.vayrotech.fourrocksgallery;
 
 public class Cell {
-    private String title, path, date, time;
+    private String title, path, date;
 
     public String getTitle() {
 
@@ -24,18 +24,19 @@ public class Cell {
     }
 
     public String getDate() {
+
         return date;
     }
 
     public void setDate(String date) {
+
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
-    }
+    public String toString(){
+    return title + " | " + date + " | " + path;
 
-    public void setTime(String path) {
-        this.time = time;
-    }
+}
+
+
 }

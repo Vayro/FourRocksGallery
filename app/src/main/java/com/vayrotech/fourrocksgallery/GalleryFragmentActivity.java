@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,7 +19,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -72,7 +75,7 @@ public class GalleryFragmentActivity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -115,15 +118,14 @@ public class GalleryFragmentActivity extends Fragment {
 
 
 
-
-
-
-
-
-
     }
 
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.gallery_menu, menu) ;
+    }
 
 
 
@@ -136,6 +138,8 @@ public class GalleryFragmentActivity extends Fragment {
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(); //External/Public directory
         allFilesPaths = new ArrayList<>();
         allFilesPaths = listAllFiles(path);
+        Log.d("test", "test");
+        Log.d("list", allFilesPaths.toString());
 
         RecyclerView recyclerView = (RecyclerView)  getView().findViewById(R.id.gallery);
         recyclerView.setHasFixedSize(true);
@@ -161,6 +165,7 @@ public class GalleryFragmentActivity extends Fragment {
             Cell cell = new Cell();
             cell.setTitle(c.getTitle());
             cell.setPath(c.getPath());
+            cell.setDate(c.getDate());
             allImages.add(cell);
 
         }
@@ -207,8 +212,33 @@ public class GalleryFragmentActivity extends Fragment {
 
     //In your fragment - call this method from onClickListener
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dateAscending:
+                //sort date ascending stuff here
 
+                Toast.makeText(getActivity(), "Sorted by date (ascending)!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.dateDescending:
+                //sort date descending stuff here
 
+                Toast.makeText(getActivity(), "Sorted by reverse date (descending)!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nameAscending:
+                //sort name ascending stuff here
+
+                Toast.makeText(getActivity(), "Sorted by name (ascending)!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nameDescending:
+                //sort name descending stuff here
+
+                Toast.makeText(getActivity(), "Sorted by name (descending)!", Toast.LENGTH_SHORT).show();
+                return true;
+
+        }
+        return true;
+    }
 
 
 
