@@ -210,7 +210,7 @@ return true;
             //  selectedImage = (Bitmap) data.getExtras().get("data");
 
 
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK && data !=null /*test*/) {
                 File f = new File(currentPhotoPath);
                 selectedImage = Uri.fromFile(f);
                 Toast.makeText(this, "Saved file to " + Uri.fromFile(f), Toast.LENGTH_SHORT).show();
