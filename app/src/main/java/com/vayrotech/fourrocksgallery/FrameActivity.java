@@ -220,6 +220,11 @@ return true;
 
 
             }
+            else
+            {
+                Toast.makeText(this, "No photo taken", Toast.LENGTH_SHORT).show();
+
+            }
 
 
         }

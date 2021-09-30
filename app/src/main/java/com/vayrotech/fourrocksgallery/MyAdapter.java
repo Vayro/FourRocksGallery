@@ -5,12 +5,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
@@ -44,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        setImageFromPath(galleryList.get(i).getPath(), viewHolder.img);
+        setImageFromPath(galleryList.get(i).getPath(), viewHolder.img, viewHolder.imgDate);
         viewHolder.img.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -78,10 +81,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView img;
+        private TextView imgDate;
         public ViewHolder(View view){
             super(view);
 
             img = (ImageView) view.findViewById(R.id.img);
+            imgDate = (TextView) view.findViewById(R.id.imgDate);
 
 
         }
@@ -89,11 +94,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     }
 
-    private void setImageFromPath(String path, ImageView image){
+    private void setImageFromPath(String path, ImageView image, TextView date){
         File imgFile = new File(path);
         if (imgFile.exists()){
+
+         //   SimpleDateFormat fmt = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss a, vvv");
+            String lastModDate = new SimpleDateFormat("MM/dd/yyyy ',' hh:mm:ss a").format(new Date(imgFile.lastModified()));
+          //  Date lastModDate = new Date(imgFile.lastModified());
+
+
+
             Bitmap myBitmap = ImageHelper.decodeSampledBitmapFromPath(imgFile.getAbsolutePath(), 200,200);
             image.setImageBitmap(myBitmap);
+            date.setText(lastModDate.toString());
+
+
+
         }
 
     }

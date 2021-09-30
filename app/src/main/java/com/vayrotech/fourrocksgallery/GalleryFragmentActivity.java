@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -173,9 +174,14 @@ public class GalleryFragmentActivity extends Fragment {
         File[] files = file.listFiles();
         if (files != null) {
             for (File f : files) {
+
+                Date lastModDate = new Date(f.lastModified());
+
+
                 Cell cell = new Cell();
                 cell.setTitle(f.getName());
                 cell.setPath(f.getAbsolutePath());
+                cell.setDate(lastModDate.toString());
                 allFiles.add(cell);
             }
         }
