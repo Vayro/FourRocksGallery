@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".FrameActivity">
+
+
+
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="700dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,35 +34,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <Button
-                android:id="@+id/buttonCamera"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_baseline_photo_camera_24"
-                android:background="?android:attr/windowBackground"
-                android:text="Camera" />
 
             <Button
                 android:id="@+id/buttonSelected"
-                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_baseline_select_all_24"
-                android:background="?android:attr/windowBackground"
-                android:text="SELECTED" />
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/ic_baseline_select_all_24"
+                android:scaleX="1.25"
+                android:scaleY="1.25" />
+
+            <Button
+                android:id="@+id/buttonCamera"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_camera"
+                android:scaleX="1.25"
+                android:scaleY="1.25" />
 
             <Button
                 android:id="@+id/buttonGallery"
-                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_baseline_photo_album_24"
-                android:background="?android:attr/windowBackground"
-                android:text="Gallery" />
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_baseline_photo_album_24"
+                android:scaleX="1.25"
+                android:scaleY="1.25" />
         </TableRow>
 
     </TableLayout>

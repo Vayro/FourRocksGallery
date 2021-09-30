@@ -21,9 +21,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.view.Menu;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,83 +50,107 @@ public class FrameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_frame);
 
 
-    //initialize bitmap placeholder
-    selectedImage = null;
+        //initialize bitmap placeholder
+        selectedImage = null;
 
 
-    //initialize buttons
-    cameraButton = findViewById(R.id.buttonCamera);
-    galleryButton = findViewById(R.id.buttonGallery);
-    selectedButton = findViewById(R.id.buttonSelected);
+        //initialize buttons
+        cameraButton = findViewById(R.id.buttonCamera);
+        galleryButton = findViewById(R.id.buttonGallery);
+        selectedButton = findViewById(R.id.buttonSelected);
 
-    //set onClickListeners
-    cameraButton.setOnClickListener(new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(FrameActivity.this,"Camera", Toast.LENGTH_SHORT).show();
-     //stuff
+        //set onClickListeners
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(FrameActivity.this, "Camera", Toast.LENGTH_SHORT).show();
+                //stuff
 
-            askCameraPermissions();
-
-
+                askCameraPermissions();
 
 
+            }
+        });
 
 
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toGalleryFrag();
 
 
-        }
-    });
+            }
+        });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    galleryButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            replaceFragment(new GalleryFragmentActivity());
-
-
-        }
-    });
-
-    selectedButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        replaceFragment(new SelectedFragmentActivity());
-        }
-    });
-
-
-
-
-
-
-
+        selectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toSelectedFrag();
+            }
+        });
 
 
         //starts app with galleryFragment
         replaceFragment(new GalleryFragmentActivity());
 
 
+    }
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.selectedMenu:
+                toSelectedFrag();
+                break;
+            case R.id.galleryMenu:
+                toGalleryFrag();
+                break;
+            case R.id.cameraMenu:
+                askCameraPermissions();
+                break;
+        }
+return true;
 
 
     }
+
+    public void toSelectedFrag()
+    {
+
+        replaceFragment(new SelectedFragmentActivity());
+
+    }
+    public void toGalleryFrag()
+    {
+
+        replaceFragment(new GalleryFragmentActivity());
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu m) {
+        getMenuInflater().inflate(R.menu.menu, m);
+        return true;
+
+
+    }
+
+
 
 
 
@@ -132,36 +158,31 @@ public class FrameActivity extends AppCompatActivity {
     private void askCameraPermissions() {
 
         //permission for camera request
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA},CAMERA_REQUEST_CODE);}
-        else
-            {
-                dispatchTakePictureIntent();
-            }
-
-
-
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+        } else {
+            dispatchTakePictureIntent();
         }
 
+
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == CAMERA_REQUEST_CODE){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-               // openCamera();
+                // openCamera();
                 dispatchTakePictureIntent();
-            }else{
-                Toast.makeText(this,"Requires permission to use camera.",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Requires permission to use camera.", Toast.LENGTH_SHORT).show();
 
             }
 
 
         }
-
 
 
     }
@@ -178,13 +199,13 @@ public class FrameActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST_CODE) {
-          //  selectedImage = (Bitmap) data.getExtras().get("data");
+            //  selectedImage = (Bitmap) data.getExtras().get("data");
 
 
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 File f = new File(currentPhotoPath);
                 selectedImage = Uri.fromFile(f);
-                Toast.makeText(this,"Saved file to " + Uri.fromFile(f),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Saved file to " + Uri.fromFile(f), Toast.LENGTH_SHORT).show();
 
 
                 //galleryAddPic()
@@ -194,20 +215,11 @@ public class FrameActivity extends AppCompatActivity {
                 this.sendBroadcast(mediaScanIntent);
 
 
-
-
-
-
-
-
-
                 //move to SelectedFragment upon leaving camera
                 replaceFragment(new SelectedFragmentActivity());
 
 
             }
-
-
 
 
         }
@@ -216,18 +228,13 @@ public class FrameActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "PNG_" + timeStamp + "_";
-       // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //temp saving location
-       File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); //External/Public directory
+        // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES); //temp saving location
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); //External/Public directory
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".png",         /* suffix */
@@ -239,7 +246,7 @@ public class FrameActivity extends AppCompatActivity {
         return image;
     }
 
- //   static final int REQUEST_IMAGE_CAPTURE = 1;
+    //   static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void dispatchTakePictureIntent() {
@@ -247,11 +254,8 @@ public class FrameActivity extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
 
 
-
         //the following code I got from Google official API, for some reason it doesn't work with my AVD devices, but it worked when I tested it on my actual device:
-       // if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-
-
+        // if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 
 
         //INSTEAD, I had to use the following if statement:
@@ -264,8 +268,8 @@ public class FrameActivity extends AppCompatActivity {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Toast.makeText(this,"penis",Toast.LENGTH_SHORT).show();
-           // ...
+                Toast.makeText(this, "penis", Toast.LENGTH_SHORT).show();
+                // ...
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -275,30 +279,16 @@ public class FrameActivity extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
             }
-        }
-        else
-        {
+        } else {
 
-            Toast.makeText(this,"No camera activity",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No camera activity", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     //end camera stuff ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public interface FragmentChangeListener{
+    public interface FragmentChangeListener {
 
         void replaceFragment(Fragment fragment);
 
@@ -308,25 +298,17 @@ public class FrameActivity extends AppCompatActivity {
     //load fragment
     public void replaceFragment(Fragment fragment) {
 
-      //  Toast.makeText(this,"replacing fragment",Toast.LENGTH_SHORT).show(); <------this dubugging toast message is no longer needed
+        //  Toast.makeText(this,"replacing fragment",Toast.LENGTH_SHORT).show(); <------this dubugging toast message is no longer needed
         Bundle bundle = new Bundle();
         bundle.putParcelable("passedImage", selectedImage);
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
 
 
-
-
     }
-
-
-
-
-
-
 
 
 }

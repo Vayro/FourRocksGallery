@@ -12,5 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="selected image"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@drawable/placeholder" />
 </FrameLayout>

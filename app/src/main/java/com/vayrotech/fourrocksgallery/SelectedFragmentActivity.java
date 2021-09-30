@@ -104,7 +104,11 @@ public class SelectedFragmentActivity extends Fragment {
 
         //created stuff goes here
         selectedImage = getView().findViewById(R.id.selectedView);
-        selectedImage.setImageURI(passedImageFrag);
+
+        if(passedImageFrag!=null){
+              selectedImage.setImageURI(passedImageFrag);}
+        else
+            selectedImage.setImageDrawable(getResources().getDrawable(R.drawable.placeholder));
 
 
     }
