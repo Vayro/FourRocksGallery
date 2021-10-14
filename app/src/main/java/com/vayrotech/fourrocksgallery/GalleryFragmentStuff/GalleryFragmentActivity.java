@@ -242,7 +242,7 @@ public class GalleryFragmentActivity extends Fragment {
                 Cell cell = new Cell();
                 cell.setTitle(f.getName());
                 cell.setPath(f.getAbsolutePath());
-                cell.setDate(lastModDate.toString());
+                cell.setDate(lastModDate);
                 allFiles.add(cell);
             }
         }

@@ -1,7 +1,10 @@
 package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 
+import java.util.Date;
+
 public class Cell implements Comparable< Cell >{
-    private String title, path, date;
+    private String title, path;
+    private Date date;
 
     public String getTitle() {
 
@@ -23,12 +26,12 @@ public class Cell implements Comparable< Cell >{
         this.path = path;
     }
 
-    public String getDate() {
+    public Date getDate() {
 
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
 
         this.date = date;
     }
