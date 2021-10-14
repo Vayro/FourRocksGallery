@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.os.IResultReceiver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -37,6 +38,8 @@ public class GalleryFragmentActivity extends Fragment {
 
     View view;
     List<Cell> allFilesPaths;
+    final String defaultPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+    String folderPath = defaultPath;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -101,6 +104,21 @@ public class GalleryFragmentActivity extends Fragment {
 
         //created stuff goes here
 
+        folderPath = this.getArguments().getString("pathToPass");
+        if(folderPath==null){
+            folderPath=defaultPath;
+        }
+        else
+        {
+            Log.d("PATH PASSED:", folderPath);
+        }
+
+
+
+
+
+
+
         //for the storage permission
         if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M &&
 
@@ -137,7 +155,21 @@ public class GalleryFragmentActivity extends Fragment {
     private void showImages(String sort) {
         //this is the folder with all the images
         //String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/";
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(); //External/Public directory
+        String path;
+
+        if(folderPath!=defaultPath) {
+            path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folderPath; //External/Public directory
+            Log.d("Full Folder Path", "Folder Path: " + path);
+        } else
+        {
+            path = folderPath;
+            Log.d("Full Folder Path", "Default Path: " + path);
+        }
+
+
+
+
+
         allFilesPaths = new ArrayList<>();
         allFilesPaths = listAllFiles(path);
 

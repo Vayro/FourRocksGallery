@@ -27,6 +27,8 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.view.Menu;
 
+import com.vayrotech.fourrocksgallery.FolderFragmentStuff.FoldersFragment;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -133,8 +135,8 @@ return true;
     }
     public void toGalleryFrag()
     {
-
-        replaceFragment(new GalleryFragmentActivity());
+        replaceFragment(new FoldersFragment());
+        //replaceFragment(new GalleryFragmentActivity());
 
     }
 
