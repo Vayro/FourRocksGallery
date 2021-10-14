@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vayrotech.fourrocksgallery.ModelDatabase;
 import com.vayrotech.fourrocksgallery.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,7 @@ public class GalleryFragmentActivity extends Fragment {
     List<Cell> allFilesPaths;
     final String defaultPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     String folderPath = defaultPath;
+    ModelDatabase DB;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -102,6 +104,10 @@ public class GalleryFragmentActivity extends Fragment {
 
         //created stuff goes here
 
+
+        DB = new ModelDatabase(this.getContext()); //create the database object
+
+
         folderPath = this.getArguments().getString("pathToPass");
         if (folderPath == null) {
             folderPath = defaultPath;
@@ -121,6 +127,20 @@ public class GalleryFragmentActivity extends Fragment {
             Toast.makeText(getActivity(), "images loading", Toast.LENGTH_SHORT).show();
             showImages("");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -155,10 +175,6 @@ public class GalleryFragmentActivity extends Fragment {
 
 
         //i need to check array list for trashed items and delete them here:
-
-
-
-
         for(Cell i : allFilesPaths) {
             String penis = i.getTitle();
             Log.d("Title", penis);
@@ -170,8 +186,33 @@ public class GalleryFragmentActivity extends Fragment {
 
 
         }
-
         allFilesPaths.removeIf(i -> i.getTitle().startsWith("."));
+
+
+
+
+
+        //we'll update the database with the new arraylist
+
+
+
+        for(Cell i : allFilesPaths) {
+          String dbPath = i.getTitle();
+           String dbTitle = i.getPath();
+           String dbDate = i.getDate().toString();
+
+            //TODO THIS VARIABLE IS FOR TENSOR FLOW CLASSIFICATION
+            String  dbClass = "test";
+
+
+            Boolean checkinsertdata = DB.insertdata(dbPath, dbTitle, dbDate, dbClass);
+            if (checkinsertdata == true) {
+                Toast.makeText(this.getContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this.getContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+            }
+        }
 
 
 

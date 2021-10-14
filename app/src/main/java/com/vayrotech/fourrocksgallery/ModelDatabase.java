@@ -2,35 +2,50 @@ package com.vayrotech.fourrocksgallery;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.Date;
+
 public class ModelDatabase extends SQLiteOpenHelper {
 
     public ModelDatabase( Context context) {
-        super(context,"name.db", null, 1);
+        super(context,"four.db", null, 1);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table tableimage (name text, imageblob); ");
+    public void onCreate(SQLiteDatabase DB) {
+        DB.execSQL("create table tableimage(path TEXT PRIMARY KEY, title TEXT, date TEXT, classification TEXT); ");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-            db.execSQL("drop table if exists tableimage");
+    public void onUpgrade(SQLiteDatabase DB, int i, int i1) {
+            DB.execSQL("drop table if exists tableimage");
 
     }
-    public boolean insertdata(String username, byte[] img){
+    public boolean insertdata(String path, String title, String date, String classification){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", username);
-        contentValues.put("image",img);
+        contentValues.put("path", path);
+        contentValues.put("title",title);
+        contentValues.put("date", date);
+        contentValues.put("classification", classification);
         long ins = MyDB.insert("tableimage", null, contentValues);
         if(ins==-1) return false;
         else return true;
+
+    }
+
+
+
+    public Cursor getdata ()
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from tableimage", null);
+        return cursor;
 
     }
 }
