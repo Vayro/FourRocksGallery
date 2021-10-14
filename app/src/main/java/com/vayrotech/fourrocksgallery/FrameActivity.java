@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.view.Menu;
 
 import com.vayrotech.fourrocksgallery.FolderFragmentStuff.FoldersFragment;
+import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 
 import java.io.File;
 import java.io.IOException;

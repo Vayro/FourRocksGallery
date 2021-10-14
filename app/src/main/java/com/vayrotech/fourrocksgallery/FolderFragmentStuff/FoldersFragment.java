@@ -19,13 +19,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.AdapterView;
-import android.widget.Gallery;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.vayrotech.fourrocksgallery.GalleryFragmentActivity;
+import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 import com.vayrotech.fourrocksgallery.R;
-import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
 
 import java.util.ArrayList;
 

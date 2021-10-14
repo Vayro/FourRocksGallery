@@ -1,12 +1,10 @@
-package com.vayrotech.fourrocksgallery;
+package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.os.IResultReceiver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -20,14 +18,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.vayrotech.fourrocksgallery.R;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -66,8 +66,6 @@ public class GalleryFragmentActivity extends Fragment {
      * @return A new instance of fragment ScheduleFragment.
      */
     // TODO: Rename and change types and number of parameters
-
-
     public static GalleryFragmentActivity newInstance(String param1, String param2) {
         GalleryFragmentActivity fragment = new GalleryFragmentActivity();
         Bundle args = new Bundle();
@@ -105,48 +103,33 @@ public class GalleryFragmentActivity extends Fragment {
         //created stuff goes here
 
         folderPath = this.getArguments().getString("pathToPass");
-        if(folderPath==null){
-            folderPath=defaultPath;
-        }
-        else
-        {
+        if (folderPath == null) {
+            folderPath = defaultPath;
+        } else {
             Log.d("PATH PASSED:", folderPath);
         }
 
 
-
-
-
-
-
         //for the storage permission
-        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M &&
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
 
-                ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED)
-        {
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
-        } else
-
-        {
+        } else {
             //show the images
             Toast.makeText(getActivity(), "images loading", Toast.LENGTH_SHORT).show();
             showImages("");
         }
 
 
-
-
-
     }
-
 
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.gallery_menu, menu) ;
+        inflater.inflate(R.menu.gallery_menu, menu);
     }
-
 
 
 //Gallery Main Processes
@@ -157,17 +140,13 @@ public class GalleryFragmentActivity extends Fragment {
         //String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/";
         String path;
 
-        if(folderPath!=defaultPath) {
+        if (folderPath != defaultPath) {
             path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folderPath; //External/Public directory
             Log.d("Full Folder Path", "Folder Path: " + path);
-        } else
-        {
+        } else {
             path = folderPath;
             Log.d("Full Folder Path", "Default Path: " + path);
         }
-
-
-
 
 
         allFilesPaths = new ArrayList<>();
@@ -175,7 +154,32 @@ public class GalleryFragmentActivity extends Fragment {
 
 
 
-        switch(sort) {
+        //i need to check array list for trashed items and delete them here:
+
+
+
+
+        for(Cell i : allFilesPaths) {
+            String penis = i.getTitle();
+            Log.d("Title", penis);
+            if(penis.startsWith("."))
+            {
+                Log.e("SHOULD DELETE THIS CELL ", penis);
+            }
+
+
+
+        }
+
+        allFilesPaths.removeIf(i -> i.getTitle().startsWith("."));
+
+
+
+
+
+
+
+        switch (sort) {
             case "dateA":
                 Collections.sort(allFilesPaths);
                 break;
@@ -190,14 +194,10 @@ public class GalleryFragmentActivity extends Fragment {
 
 
 
-
-
-
-
         Log.d("test", "test");
         Log.d("list", allFilesPaths.toString());
 
-        RecyclerView recyclerView = (RecyclerView)  getView().findViewById(R.id.gallery);
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.gallery);
         recyclerView.setHasFixedSize(true);
 
         //this makes a list with 3 columns
@@ -265,7 +265,6 @@ public class GalleryFragmentActivity extends Fragment {
     }
 
 
-
     //In your fragment - call this method from onClickListener
 
     @Override
@@ -301,16 +300,7 @@ public class GalleryFragmentActivity extends Fragment {
     }
 
 
-
-
-
-
 //test2
-
-
-
-
-
 
 
 }

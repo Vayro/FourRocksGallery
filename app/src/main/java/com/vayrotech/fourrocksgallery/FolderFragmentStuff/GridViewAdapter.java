@@ -1,7 +1,5 @@
 package com.vayrotech.fourrocksgallery.FolderFragmentStuff;
-/**
- * Created by deepshikha on 3/3/17.
- */
+
 
 import android.app.Activity;
 import android.content.Context;

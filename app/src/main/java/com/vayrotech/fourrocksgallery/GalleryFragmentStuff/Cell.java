@@ -1,6 +1,4 @@
-package com.vayrotech.fourrocksgallery;
-
-import java.util.Collection;
+package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 
 public class Cell implements Comparable< Cell >{
     private String title, path, date;

@@ -1,4 +1,4 @@
-package com.vayrotech.fourrocksgallery;
+package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

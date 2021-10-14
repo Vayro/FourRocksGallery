@@ -1,9 +1,8 @@
-package com.vayrotech.fourrocksgallery;
+package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 //lists all the MF images in RecycleView
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
@@ -18,6 +17,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.vayrotech.fourrocksgallery.R;
+import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
 
 import java.io.File;
 import java.util.ArrayList;
