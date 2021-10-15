@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.vayrotech.fourrocksgallery.ModelDatabase;
+import com.vayrotech.fourrocksgallery.DatabaseStuff.ModelDatabase;
 import com.vayrotech.fourrocksgallery.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -205,7 +205,7 @@ public class GalleryFragmentActivity extends Fragment {
             String  dbClass = "test";
 
 
-            Boolean checkinsertdata = DB.insertdata(dbPath, dbTitle, dbDate, dbClass);
+            Boolean checkinsertdata = DB.insertData(dbPath, dbTitle, dbDate, dbClass);
             if (checkinsertdata == true) {
                 Toast.makeText(this.getContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
 

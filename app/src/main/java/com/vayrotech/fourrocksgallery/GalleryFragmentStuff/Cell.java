@@ -3,7 +3,7 @@ package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 import java.util.Date;
 
 public class Cell implements Comparable< Cell >{
-    private String title, path;
+    private String title, path, classification;
     private Date date;
 
     public String getTitle() {
@@ -35,6 +35,17 @@ public class Cell implements Comparable< Cell >{
 
         this.date = date;
     }
+
+
+    public void setClassification(String Classification){
+        this.classification = classification;
+
+    }
+
+    public String getClassification(){
+        return classification;
+    }
+
 
     public String toString(){
     return title + " | " + date + " | " + path;

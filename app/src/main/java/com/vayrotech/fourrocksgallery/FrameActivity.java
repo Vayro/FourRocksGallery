@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.view.Menu;
 
+import com.vayrotech.fourrocksgallery.DatabaseStuff.ViewDatabaseFragment;
 import com.vayrotech.fourrocksgallery.FolderFragmentStuff.FoldersFragment;
 import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 
@@ -40,6 +41,7 @@ public class FrameActivity extends AppCompatActivity {
 
     public static final int CAMERA_REQUEST_CODE = 69;
     public static final int CAMERA_PASS_REQUEST_CODE = 420;
+    public static final String TABLENAME = "tableimage";
 
     Uri selectedImage; //declare selected image bitmap; this will be passed to the "selected" fragment
     String currentPhotoPath;
@@ -114,11 +116,15 @@ public class FrameActivity extends AppCompatActivity {
             case R.id.cameraMenu:
                 askCameraPermissions();
                 return true;
+            case R.id.toDatabaseMenu:
+                toDatabaseFrag();
+                return true;
 
             case R.id.dateAscending:
             case R.id.dateDescending:
             case R.id.nameAscending:
             case R.id.nameDescending:
+            case R.id.clearDBMenu:
                 return false;
 
 
@@ -126,6 +132,10 @@ public class FrameActivity extends AppCompatActivity {
 return true;
 
 
+    }
+
+    private void toDatabaseFrag() {
+        replaceFragment(new ViewDatabaseFragment());
     }
 
     public void toSelectedFrag()
@@ -317,6 +327,7 @@ return true;
         //  Toast.makeText(this,"replacing fragment",Toast.LENGTH_SHORT).show(); <------this dubugging toast message is no longer needed
         Bundle bundle = new Bundle();
         bundle.putParcelable("passedImage", selectedImage);
+        bundle.putString("tableName", TABLENAME);
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

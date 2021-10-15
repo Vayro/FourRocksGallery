@@ -1,4 +1,4 @@
-package com.vayrotech.fourrocksgallery;
+package com.vayrotech.fourrocksgallery.DatabaseStuff;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -26,7 +26,7 @@ public class ModelDatabase extends SQLiteOpenHelper {
             DB.execSQL("drop table if exists tableimage");
 
     }
-    public boolean insertdata(String path, String title, String date, String classification){
+    public boolean insertData(String path, String title, String date, String classification){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("path", path);
@@ -41,11 +41,19 @@ public class ModelDatabase extends SQLiteOpenHelper {
 
 
 
-    public Cursor getdata ()
+    public Cursor getData ()
     {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from tableimage", null);
         return cursor;
 
     }
+
+    public void clearDatabase(String TABLE_NAME) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String clearDBQuery = "DELETE FROM " + TABLE_NAME;
+        db.execSQL(clearDBQuery);
+    }
+
+
 }

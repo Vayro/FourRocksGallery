@@ -11,6 +11,20 @@
     <item android:id="@+id/galleryMenu"
         android:title="Gallery"
         app:showAsAction="never"/>
+    <item android:id="@+id/advancedMenu"
+        android:title="Advanced..."
+        app:showAsAction="never">
+<menu>
+
+    <item android:id="@+id/toDatabaseMenu"
+        android:title="View Database"
+        app:showAsAction="never"/>
+
+</menu>
+
+
+
+    </item>
 
 
 
