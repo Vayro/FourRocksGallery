@@ -3,24 +3,32 @@ package com.vayrotech.fourrocksgallery;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +41,9 @@ import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivi
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class FrameActivity extends AppCompatActivity {
@@ -42,6 +52,7 @@ public class FrameActivity extends AppCompatActivity {
     public static final int CAMERA_REQUEST_CODE = 69;
     public static final int CAMERA_PASS_REQUEST_CODE = 420;
     public static final String TABLENAME = "tableimage";
+
 
     Uri selectedImage; //declare selected image bitmap; this will be passed to the "selected" fragment
     String currentPhotoPath;
@@ -274,7 +285,7 @@ return true;
 
     //   static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+   // @RequiresApi(api = Build.VERSION_CODES.N)
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -294,7 +305,7 @@ return true;
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Toast.makeText(this, "penis", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "camera error", Toast.LENGTH_SHORT).show();
                 // ...
             }
             // Continue only if the File was successfully created
@@ -336,6 +347,75 @@ return true;
 
 
     }
+
+
+
+
+
+    public void deleteImage(Context context, String path, String filename){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setTitle("Delete");
+        builder.setMessage("Delete image?");
+
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //delete file stuff
+               File penis = new File(path);
+                deleteFile(penis, filename);
+
+
+
+
+
+              //  requestDeletePermission( context,uris);
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+    }
+
+
+    private void deleteFile(File path, String filename) {
+        DocumentFile pickedDir = DocumentFile.fromFile(path);
+        try {
+            Uri uri = Uri.fromFile(path);
+            getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        Log.d("Log ID", filename);
+        Log.d("Log ID", path.getAbsolutePath());
+        Log.d("Log ID", path.getPath());
+        Log.d("Log ID", path.getName());
+        DocumentFile file = pickedDir.findFile(filename);
+        if(path.delete())
+            Log.d("Log ID", "Delete successful");
+        else
+            Log.d("Log ID", "Delete unsuccessful");
+    }
+
+
+
+
+
+
 
 
 }

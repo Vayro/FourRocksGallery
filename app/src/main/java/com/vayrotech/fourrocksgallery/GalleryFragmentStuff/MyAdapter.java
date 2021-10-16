@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vayrotech.fourrocksgallery.FrameActivity;
 import com.vayrotech.fourrocksgallery.R;
 import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
 
@@ -87,7 +88,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             public boolean onLongClick(View v) {
                 // TODO Auto-generated method stub
                 Toast.makeText(v.getContext(), "this should open a menu",      Toast.LENGTH_LONG).show();
-                deleteImage(v.getContext(), Uri.parse(galleryList.get(i).getPath()), galleryList.get(i).getTitle() );
+
+
+
+                ((FrameActivity) v.getContext()).deleteImage(v.getContext(), galleryList.get(i).getPath(), galleryList.get(i).getTitle());
+               // deleteImage(v.getContext(), Uri.parse(galleryList.get(i).getPath()), galleryList.get(i).getTitle() );
                 return true;
             }
         });
@@ -139,37 +144,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
 
-    private void deleteImage(Context context, Uri uri, String filename){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        builder.setTitle("Delete");
-        builder.setMessage("Delete image?");
-
-        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                //delete file stuff
-
-
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-
-
-    }
 
 
 
