@@ -161,7 +161,7 @@ public class GalleryFragmentActivity extends Fragment {
         String path;
 
         if (folderPath != defaultPath) {
-            path = folderPath; //External/Public directory
+            path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folderPath; //External/Public directory
             Log.d("Full Folder Path", "Folder Path: " + path);
         } else {
             path = folderPath;
@@ -187,7 +187,7 @@ public class GalleryFragmentActivity extends Fragment {
 
         }
         allFilesPaths.removeIf(i -> i.getTitle().startsWith("."));
-        Collections.sort(allFilesPaths, Collections.reverseOrder());
+
 
 
 

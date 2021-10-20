@@ -8,31 +8,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.database.Cursor;
-import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
 
+import android.graphics.drawable.BitmapDrawable;
+import android.widget.Toast;
+
+
+import java.io.IOException;
+import java.util.List;
+
+
 public class SelectedFragmentActivity extends Fragment {
-
-
+    private int mIS = 224;
+    private String MP = "model_unquant.tflite";
+    //"model_unquant.tflite";
+    private String LP = "labels.txt";
+    Classifier classifier;
+    TextView TextView;
+    Button classify;
     View view;
     ImageView selectedImage;
     Uri passedImageFrag;
@@ -82,17 +85,15 @@ public class SelectedFragmentActivity extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-      passedImageFrag = this.getArguments().getParcelable("passedImage");
+        passedImageFrag = this.getArguments().getParcelable("passedImage");
 
-      //this takes whatever URI that was passed to this fragment and updates the selectedImage variable in the frameActivity so that if you leave this fragment and come back, the selectedImage will remain as the last image selected
-      FrameActivity penIsland = (FrameActivity)getActivity();
-      penIsland.selectedImage = passedImageFrag;
-
+        //this takes whatever URI that was passed to this fragment and updates the selectedImage variable in the frameActivity so that if you leave this fragment and come back, the selectedImage will remain as the last image selected
+        FrameActivity penIsland = (FrameActivity) getActivity();
+        penIsland.selectedImage = passedImageFrag;
 
 
         // Inflate the layout for this fragment
@@ -106,11 +107,42 @@ public class SelectedFragmentActivity extends Fragment {
 
         //created stuff goes here
         selectedImage = getView().findViewById(R.id.selectedView);
+        TextView=getView().findViewById(R.id.textView);
 
-        if(passedImageFrag!=null){
-              selectedImage.setImageURI(passedImageFrag);}
-        else
+        if (passedImageFrag != null) {
+            selectedImage.setImageURI(passedImageFrag);
+        } else
             selectedImage.setImageDrawable(getResources().getDrawable(R.drawable.placeholder));
+
+        try { initClassifier();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        selectedImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Bitmap bitmap = ((BitmapDrawable) ((ImageView) v).getDrawable()).getBitmap();
+                List<Classifier.Recognition> result = classifier.recognizeImage(bitmap);
+                 //Toast.makeText(this, result.get(0).toString(),Toast.LENGTH_SHORT).show();
+                TextView.setText(result.get(0).toString());
+            }
+
+
+        });
+
+
+
+        }
+
+        private void initClassifier() throws IOException {
+        classifier = new Classifier(getActivity().getAssets(),MP, LP, mIS);
+
+
+    }
+
 
 
     }
@@ -118,4 +150,9 @@ public class SelectedFragmentActivity extends Fragment {
 
 
 
-}
+
+
+
+
+
+

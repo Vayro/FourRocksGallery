@@ -13,4 +13,12 @@
         android:layout_height="match_parent"
         android:contentDescription="selected image"
         tools:src="@drawable/placeholder" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="375dp"
+        android:layout_height="79dp"
+        android:textColor="#F6F1F1"
+        android:textSize="24sp" />
+
 </FrameLayout>

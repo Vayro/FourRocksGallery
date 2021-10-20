@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 import com.vayrotech.fourrocksgallery.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -114,9 +113,9 @@ public class FoldersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String folderPath = al_images.get(i).getStr_folderPath();
+                String folderPath = al_images.get(i).getStr_folder();
                 Log.d("list", folderPath);
-                Toast.makeText(getContext(), al_images.get(i).getStr_folderPath(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), al_images.get(i).getStr_folder(), Toast.LENGTH_SHORT).show();
 
 
 
@@ -194,7 +193,6 @@ public class FoldersFragment extends Fragment {
         int column_index_data, column_index_folder_name;
 
         String absolutePathOfImage = null;
-        String absoluteFolderPath = null;
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
         String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
@@ -206,17 +204,8 @@ public class FoldersFragment extends Fragment {
         column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
         while (cursor.moveToNext()) {
             absolutePathOfImage = cursor.getString(column_index_data);
-            Log.d("Column", absolutePathOfImage);
-            Log.d("Folder", cursor.getString(column_index_folder_name));
-            Log.d("URI FOR FOLDER", absolutePathOfImage);
-
-
-
-
-
-
-
-
+            Log.e("Column", absolutePathOfImage);
+            Log.e("Folder", cursor.getString(column_index_folder_name));
 
             for (int i = 0; i < al_images.size(); i++) {
                 if (al_images.get(i).getStr_folder().equals(cursor.getString(column_index_folder_name))) {
@@ -242,20 +231,6 @@ public class FoldersFragment extends Fragment {
                 Model_images obj_model = new Model_images();
                 obj_model.setStr_folder(cursor.getString(column_index_folder_name));
                 obj_model.setAl_imagepath(al_path);
-
-
-
-
-                File file = new File(absolutePathOfImage);
-                String dir = file.getParent();
-                obj_model.setStr_folderPath(dir);
-                Log.d("folderpath", dir);
-
-
-
-
-
-
 
                 al_images.add(obj_model);
 
