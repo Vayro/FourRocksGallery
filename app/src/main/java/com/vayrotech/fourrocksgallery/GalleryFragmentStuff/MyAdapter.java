@@ -54,6 +54,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setImageFromPath(galleryList.get(i).getPath(), viewHolder.img, viewHolder.imgDate);
+
+
+        /* move this to interface for better performance
+
+
         viewHolder.img.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -86,12 +91,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             @Override
             public boolean onLongClick(View v) {
                 // TODO Auto-generated method stub
-                Toast.makeText(v.getContext(), "this should open a menu",      Toast.LENGTH_LONG).show();
+               // Toast.makeText(v.getContext(), "this should open a menu",      Toast.LENGTH_LONG).show();
                 deleteImage(v.getContext(), Uri.parse(galleryList.get(i).getPath()), galleryList.get(i).getTitle() );
                 return true;
             }
         });
-
+*/
 
 
 
@@ -138,6 +143,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
+    /*
 
     private void deleteImage(Context context, Uri uri, String filename){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -174,7 +180,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
 
-
+*/
 
 
 

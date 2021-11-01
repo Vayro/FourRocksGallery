@@ -80,30 +80,7 @@ public class DatabaseListAdapter extends ArrayAdapter<Cell> {
         tvPath.setText(cell.getPath());
         tvClassification.setText(cell.getClassification());
 
-        convertView.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View view) {
-                Log.d("penis","penis");
-
-                Bundle bundle = new Bundle();
-                Uri uri = Uri.parse(cell.getPath());
-                bundle.putParcelable("passedImage", uri);
-
-                SelectedFragmentActivity selectedFragmentActivity = new SelectedFragmentActivity();
-                selectedFragmentActivity.setArguments(bundle);
-
-                AppCompatActivity activity = (AppCompatActivity) getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selectedFragmentActivity).addToBackStack(null).commit();
-
-
-
-
-
-
-
-            }
-        });
 
 
 

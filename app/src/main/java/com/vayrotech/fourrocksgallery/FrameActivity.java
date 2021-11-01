@@ -15,12 +15,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -172,7 +175,7 @@ return true;
     }
 
 
-
+    //camera stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -209,7 +212,7 @@ return true;
     }
 
 
-    //camera stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
   /*  private void openCamera() {
         Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -220,7 +223,52 @@ return true;
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST_CODE) {
-            //  selectedImage = (Bitmap) data.getExtras().get("data");
+
+
+
+
+
+
+
+
+
+
+
+
+         //  Bitmap checkDataImg = (Bitmap) data.getExtras().get("data");
+
+
+
+
+/*
+           // String filePath = data.getPath();
+           // Bitmap bitmap = BitmapFactory.decodeFile(data.getExtras().get("data"));
+            if (checkDataImg==null){
+                Toast.makeText(this, "bitmap null", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Bitmap not null ", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+*/
+
+
+
+
+
+
+            if(resultCode == RESULT_CANCELED)
+            {
+                Toast.makeText(this, "No Photo Taken, camera cancelled", Toast.LENGTH_SHORT).show();
+                File fdelete = new File(currentPhotoPath);
+                if(fdelete.delete())
+                {
+                    Log.d("deleted", "Temporary file deleted");
+                }
+
+
+            }else{
 
 
             if (resultCode == Activity.RESULT_OK && data !=null /*test*/) {
@@ -241,14 +289,21 @@ return true;
 
 
             }
+
             else
             {
                 Toast.makeText(this, "No photo taken", Toast.LENGTH_SHORT).show();
+                File fdelete = new File(currentPhotoPath);
+                if(fdelete.delete())
+                {
+                    Log.d("deleted", "Temporary file deleted");
+                }
+
 
             }
 
 
-        }
+        }}
 
 
     }
@@ -292,6 +347,18 @@ return true;
             File photoFile = null;
             try {
                 photoFile = createImageFile();
+
+
+
+
+
+
+
+
+
+
+
+
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 Toast.makeText(this, "penis", Toast.LENGTH_SHORT).show();

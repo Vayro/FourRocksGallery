@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class GalleryFragmentActivity extends Fragment {
+public class GalleryFragmentActivity extends Fragment  {
 
 
     View view;
@@ -42,7 +44,7 @@ public class GalleryFragmentActivity extends Fragment {
     final String defaultPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     String folderPath = defaultPath;
     ModelDatabase DB;
-
+    TableLayout rView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -126,9 +128,22 @@ public class GalleryFragmentActivity extends Fragment {
             //show the images
             Toast.makeText(getActivity(), "images loading", Toast.LENGTH_SHORT).show();
             showImages("");
+
+
+
+
         }
 
+/*
+//onClick events
+        rView = getView().findViewById(R.id.tableOnClick);
+        rView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });*/
 
 
 
@@ -161,7 +176,7 @@ public class GalleryFragmentActivity extends Fragment {
         String path;
 
         if (folderPath != defaultPath) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + folderPath; //External/Public directory
+            path = folderPath; //External/Public directory
             Log.d("Full Folder Path", "Folder Path: " + path);
         } else {
             path = folderPath;
@@ -171,6 +186,15 @@ public class GalleryFragmentActivity extends Fragment {
 
         allFilesPaths = new ArrayList<>();
         allFilesPaths = listAllFiles(path);
+        Collections.sort(allFilesPaths, Collections.reverseOrder());
+
+
+
+
+
+
+
+
 
 
 
@@ -207,10 +231,10 @@ public class GalleryFragmentActivity extends Fragment {
 
             Boolean checkinsertdata = DB.insertData(dbPath, dbTitle, dbDate, dbClass);
             if (checkinsertdata == true) {
-                Toast.makeText(this.getContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), "New Entry Inserted in database", Toast.LENGTH_SHORT).show();
 
             } else {
-                Toast.makeText(this.getContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this.getContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
             }
         }
 

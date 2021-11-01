@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,12 +15,14 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +32,7 @@ import com.vayrotech.fourrocksgallery.FrameActivity;
 import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.Cell;
 import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 import com.vayrotech.fourrocksgallery.R;
+import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
 
 
 import java.io.File;
@@ -113,9 +117,72 @@ public class ViewDatabaseFragment extends Fragment {
         DB = new ModelDatabase(this.getContext());
         allFilesDB = new ArrayList<>();
 
+
+
+
+
+
+        dbList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                String path = allFilesDB.get(i).getPath();
+                Log.d("onclick", path);
+
+
+                Bundle bundle = new Bundle();
+                Uri uri = Uri.parse(path);
+                bundle.putParcelable("passedImage", uri);
+
+                SelectedFragmentActivity selectedFragmentActivity = new SelectedFragmentActivity();
+                selectedFragmentActivity.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, selectedFragmentActivity).addToBackStack(null).commit();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+
         if(justCleared!=true) {
             allFilesDB = listDBFiles();
             populateList(allFilesDB);
+
+
+
+
+
+
+
+
+
         }
 
 
