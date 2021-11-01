@@ -32,11 +32,13 @@ import java.util.Date;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private ArrayList<Cell> galleryList;
+    private GalleryListener mGalleryListener;
     private Context context;
 
-    public MyAdapter(Context context, ArrayList<Cell> galleryList){
+    public MyAdapter(Context context, ArrayList<Cell> galleryList, GalleryListener galleryListener){
         this.galleryList = galleryList;
         this.context = context;
+        this.mGalleryListener = galleryListener;
 
 
     }
@@ -46,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell, viewGroup, false);
-        return new MyAdapter.ViewHolder(view);
+        return new MyAdapter.ViewHolder(view, mGalleryListener);
     }
 
 
@@ -102,25 +104,40 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return galleryList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView img;
         private TextView imgDate;
-        public ViewHolder(View view){
+        GalleryListener galleryListener;
+
+        public ViewHolder(View view, GalleryListener galleryListener){
             super(view);
 
             img = (ImageView) view.findViewById(R.id.img);
             imgDate = (TextView) view.findViewById(R.id.imgDate);
+            this.galleryListener = galleryListener;
 
-
+            view.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+            galleryListener.onGalleryClick(getAdapterPosition());
+        }
     }
+
+
+
+
+
+
 
     private void setImageFromPath(String path, ImageView image, TextView date){
         File imgFile = new File(path);
@@ -141,6 +158,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
 
     }
+
+
+
+
+
+
+
+
+
+public interface GalleryListener{
+        void onGalleryClick(int position);
+
+}
+
+
+
+
+
+
+
+
 
 
     /*

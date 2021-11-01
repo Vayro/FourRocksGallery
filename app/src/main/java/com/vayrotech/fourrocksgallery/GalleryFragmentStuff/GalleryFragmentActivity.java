@@ -2,6 +2,7 @@ package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,6 +28,7 @@ import android.view.MenuItem;
 
 import com.vayrotech.fourrocksgallery.DatabaseStuff.ModelDatabase;
 import com.vayrotech.fourrocksgallery.R;
+import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class GalleryFragmentActivity extends Fragment  {
+public class GalleryFragmentActivity extends Fragment implements MyAdapter.GalleryListener {
 
 
     View view;
@@ -275,7 +278,7 @@ public class GalleryFragmentActivity extends Fragment  {
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         ArrayList<Cell> Cells = prepareData();
-        MyAdapter adapter = new MyAdapter(getActivity().getApplicationContext(), Cells);
+        MyAdapter adapter = new MyAdapter(getActivity().getApplicationContext(), Cells, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -362,6 +365,43 @@ public class GalleryFragmentActivity extends Fragment  {
 
         }
         return true;
+    }
+
+    @Override
+    public void onGalleryClick(int position) {
+        //to selected fragment
+        Cell i = allFilesPaths.get(position);
+        Toast.makeText(getActivity(),i.getPath(),Toast.LENGTH_SHORT).show();
+
+
+
+
+        Uri uri = Uri.parse(i.getPath());
+
+
+        //bundle URI and change fragment
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("passedImage", uri);
+
+        SelectedFragmentActivity SelectedFragmentActivity = new SelectedFragmentActivity();
+        SelectedFragmentActivity.setArguments(bundle);
+
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, SelectedFragmentActivity).addToBackStack(null).commit();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
