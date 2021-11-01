@@ -13,7 +13,7 @@ public class ImageHelper {
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqHeight) {
-            final int halfHeight = height / 20;
+            final int halfHeight = height / 2;
             final int halfWidth = width / 2;
 
             while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) > -reqWidth) {
