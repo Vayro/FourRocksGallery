@@ -30,9 +30,11 @@ import java.util.List;
 
 public class SelectedFragmentActivity extends Fragment {
     private int mIS = 224;
-    private String MP = "model_unquant.tflite";
-    //"model_unquant.tflite";
-    private String LP = "labels.txt";
+    //private String MP = "model_unquant.tflite";//my model from teachable machine
+    private String MP ="mobilenet_v1_1.0_224.tflite";//The pretrain model with 1000 classes from tensorflow
+
+    //private String LP = "labels.txt";
+    private String LP = "labels_mobilenet_v1_224.txt";// the pretrain model labels from tensorflow
     Classifier classifier;
     TextView TextView;
     Button classify;
@@ -124,20 +126,26 @@ public class SelectedFragmentActivity extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Bitmap bitmap = ((BitmapDrawable) ((ImageView) v).getDrawable()).getBitmap();
-                List<Classifier.Recognition> result = classifier.recognizeImage(bitmap);
-                 //Toast.makeText(this, result.get(0).toString(),Toast.LENGTH_SHORT).show();
-                TextView.setText(result.get(0).toString());
-            }
+                try{     Bitmap bitmap = ((BitmapDrawable) ((ImageView) v).getDrawable()).getBitmap();
 
+
+                    List<Classifier.Recognition> result = classifier.recognizeImage(bitmap);
+
+                    //Toast.makeText(this, result.get(0).toString(),Toast.LENGTH_SHORT).show();
+                    TextView.setText(result.get(0).toString());
+                }
+                catch(Exception e){
+                    TextView.setText("Unknown");
+                }
+            }
 
         });
 
 
 
-        }
+    }
 
-        private void initClassifier() throws IOException {
+    private void initClassifier() throws IOException {
         classifier = new Classifier(getActivity().getAssets(),MP, LP, mIS);
 
 
@@ -145,7 +153,7 @@ public class SelectedFragmentActivity extends Fragment {
 
 
 
-    }
+}
 
 
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ import java.util.Date;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
     private ArrayList<Cell> galleryList;
     private GalleryListener mGalleryListener;
     private Context context;
@@ -47,8 +50,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @NonNull
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell, viewGroup, false);
-        return new MyAdapter.ViewHolder(view, mGalleryListener);
+
+
+
+
+
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell, viewGroup, false);
+            return new MyAdapter.ViewHolder(view, mGalleryListener);
+
+
+
     }
 
 
@@ -219,6 +230,18 @@ public interface GalleryListener{
 
 
 */
+
+
+
+//check each element in list
+
+
+
+
+
+
+
+
 
 
 

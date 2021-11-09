@@ -1,6 +1,7 @@
 package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
@@ -148,19 +150,6 @@ public class GalleryFragmentActivity extends Fragment implements MyAdapter.Galle
             }
         });*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -273,7 +262,7 @@ public class GalleryFragmentActivity extends Fragment implements MyAdapter.Galle
         recyclerView.setLayoutManager(layoutManager);
 
         //optimizations
-        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setItemViewCacheSize(40);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
@@ -367,6 +356,11 @@ public class GalleryFragmentActivity extends Fragment implements MyAdapter.Galle
         return true;
     }
 
+
+
+
+
+
     @Override
     public void onGalleryClick(int position) {
         //to selected fragment
@@ -391,21 +385,13 @@ public class GalleryFragmentActivity extends Fragment implements MyAdapter.Galle
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
-//test2
+
+
+
+
 
 
 }

@@ -22,11 +22,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragment;
 import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 import com.vayrotech.fourrocksgallery.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -122,7 +124,7 @@ public class FoldersFragment extends Fragment {
 
 
 
-
+/*
 
                 //bundle URI and change fragment
                 Bundle bundle = new Bundle();
@@ -133,6 +135,43 @@ public class FoldersFragment extends Fragment {
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, GalleryFragmentActivity).addToBackStack(null).commit();
+
+*/
+
+
+
+
+
+
+                //bundle URI and change fragment TODO: TESTING LOAD MORE FRAGMENT
+
+
+                /* old
+                Bundle bundle = new Bundle();
+                bundle.putString("pathToPass", folderPath);
+
+                GalleryFragmentActivity GalleryFragment = new GalleryFragmentActivity();
+                GalleryFragment.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, GalleryFragment).addToBackStack(null).commit();
+
+
+                 */
+
+                //new
+                Bundle bundle = new Bundle();
+                bundle.putInt("position", i);
+
+                PhotosFragment PhotosFragment = new PhotosFragment();
+                PhotosFragment.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PhotosFragment).addToBackStack(null).commit();
+
+
+
+
 
 
 
@@ -184,7 +223,7 @@ public class FoldersFragment extends Fragment {
     }
 
 
-//penis arraylist
+//arraylist
 
     public ArrayList<Model_images> fn_imagespath() {
         al_images.clear();
@@ -229,6 +268,8 @@ public class FoldersFragment extends Fragment {
                 al_path.add(absolutePathOfImage);
                 al_images.get(int_position).setAl_imagepath(al_path);
 
+
+
             } else {
                 ArrayList<String> al_path = new ArrayList<>();
                 al_path.add(absolutePathOfImage);
@@ -239,8 +280,13 @@ public class FoldersFragment extends Fragment {
 
                 File file = new File(absolutePathOfImage);
                 String dir = file.getParent();
+                Date lastModified =new Date(file.lastModified());
+                String title = file.getName();
                 obj_model.setStr_folderPath(dir);
+                obj_model.setStr_title(title);
+                obj_model.setStr_dateModified(lastModified);
                 Log.d("folderpath", dir);
+
 
 
 

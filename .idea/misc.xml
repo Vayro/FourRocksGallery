@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/activity_frame.xml" value="0.3223958333333333" />
         <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/activity_gallery_fragment.xml" value="0.3234375" />
-        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/cell.xml" value="0.3234375" />
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/adapter_photosfolder.xml" value="0.21014492753623187" />
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/cell.xml" value="0.1" />
         <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/db_cell.xml" value="0.3234375" />
         <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/fragment_folders.xml" value="0.3234375" />
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/fragment_gallery.xml" value="0.20153985507246377" />
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/fragment_photos.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/item_loading.xml" value="0.33" />
+        <entry key="..\:/Users/Vayro/AndroidStudioProjects/FourSnap/app/src/main/res/layout/loadmore_row.xml" value="0.33" />
       </map>
     </option>
   </component>

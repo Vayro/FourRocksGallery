@@ -208,8 +208,8 @@ public class ViewDatabaseFragment extends Fragment {
 
         while (res.moveToNext()) {
             Cell cell = new Cell();
-            cell.setTitle(res.getString(0));
-            cell.setPath(res.getString(1));
+            cell.setTitle(res.getString(1));
+            cell.setPath(res.getString(0));
 
 
             String sDate = new SimpleDateFormat("MM/dd/yyyy ',' hh:mm:ss a").format(new Date(res.getString(2)));
