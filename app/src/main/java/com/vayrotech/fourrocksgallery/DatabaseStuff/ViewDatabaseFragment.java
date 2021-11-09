@@ -212,7 +212,7 @@ public class ViewDatabaseFragment extends Fragment {
             cell.setPath(res.getString(0));
 
 
-            String sDate = new SimpleDateFormat("MM/dd/yyyy ',' hh:mm:ss a").format(new Date(res.getString(2)));
+            String sDate = new SimpleDateFormat("MM/dd/yyyy ',' hh:mm a").format(new Date(res.getString(2)));
             Date date = new Date(sDate);
 
             cell.setDate(date);
