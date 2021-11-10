@@ -22,7 +22,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragment;
+
 import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 import com.vayrotech.fourrocksgallery.R;
 

@@ -271,7 +271,7 @@ return true;
             }else{
 
 
-            if (resultCode == Activity.RESULT_OK && data !=null /*test*/) {
+            if (resultCode == Activity.RESULT_OK /*&& data !=null test*/) {
                 File f = new File(currentPhotoPath);
                 selectedImage = Uri.fromFile(f);
                 Toast.makeText(this, "Saved file to " + Uri.fromFile(f), Toast.LENGTH_SHORT).show();

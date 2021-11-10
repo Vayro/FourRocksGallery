@@ -124,11 +124,16 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
         }
 
         viewHolder.tv_foldern.setVisibility(View.GONE);
-        viewHolder.tv_foldersize.setVisibility(View.GONE);
+       // viewHolder.tv_foldersize.setVisibility(View.GONE);
 
 
+        String path=al_menu.get(int_position).getAl_imagepath().get(position);
+        File file = new File(path);
+        Date lastModDate = new Date(file.lastModified());
 
-        Glide.with(context).load("file://" + al_menu.get(int_position).getAl_imagepath().get(position))
+
+        viewHolder.tv_foldersize.setText(lastModDate.toString());
+        Glide.with(context).load(path)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(viewHolder.iv_image);
