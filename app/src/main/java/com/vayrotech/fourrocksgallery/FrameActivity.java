@@ -15,8 +15,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
@@ -32,7 +30,6 @@ import android.view.Menu;
 
 import com.vayrotech.fourrocksgallery.DatabaseStuff.ViewDatabaseFragment;
 import com.vayrotech.fourrocksgallery.FolderFragmentStuff.FoldersFragment;
-import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -123,7 +120,7 @@ public class FrameActivity extends AppCompatActivity {
                 toDatabaseFrag();
                 return true;
 
-            case R.id.dateAscending:
+          //  case R.id.dateAscending:
             case R.id.dateDescending:
             case R.id.nameAscending:
             case R.id.nameDescending:

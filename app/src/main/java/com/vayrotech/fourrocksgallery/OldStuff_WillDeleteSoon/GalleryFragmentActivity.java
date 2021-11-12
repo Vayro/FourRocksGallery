@@ -1,7 +1,6 @@
-package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
+package com.vayrotech.fourrocksgallery.OldStuff_WillDeleteSoon;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
@@ -22,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
@@ -327,12 +324,12 @@ public class GalleryFragmentActivity extends Fragment implements MyAdapter.Galle
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.dateAscending:
+           /* case R.id.dateAscending:
                 //sort date ascending stuff here
 
                 Toast.makeText(getActivity(), "Sorted by date (ascending)!", Toast.LENGTH_SHORT).show();
                 showImages("dateA");
-                return true;
+                return true;*/
             case R.id.dateDescending:
                 //sort date descending stuff here
 

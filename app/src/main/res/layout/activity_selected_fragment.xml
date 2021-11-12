@@ -7,7 +7,7 @@
     android:background="@android:color/black"
     tools:context=".SelectedFragmentActivity">
 
-    <ImageView
+    <com.vayrotech.fourrocksgallery.ZoomClass
         android:id="@+id/selectedView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

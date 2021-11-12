@@ -1,8 +1,6 @@
 package com.vayrotech.fourrocksgallery.DatabaseStuff;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,16 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.vayrotech.fourrocksgallery.R;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.Cell;
+import com.vayrotech.fourrocksgallery.OldStuff_WillDeleteSoon.Cell;
 import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;

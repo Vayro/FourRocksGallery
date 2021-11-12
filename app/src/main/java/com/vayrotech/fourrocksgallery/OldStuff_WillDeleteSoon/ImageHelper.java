@@ -1,4 +1,4 @@
-package com.vayrotech.fourrocksgallery.GalleryFragmentStuff;
+package com.vayrotech.fourrocksgallery.OldStuff_WillDeleteSoon;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

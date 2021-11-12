@@ -23,7 +23,6 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 
-import com.vayrotech.fourrocksgallery.GalleryFragmentStuff.GalleryFragmentActivity;
 import com.vayrotech.fourrocksgallery.R;
 
 import java.io.File;
@@ -52,9 +51,9 @@ public class FoldersFragment extends Fragment {
     Adapter_PhotosFolder obj_adapter;
     GridView gv_folder;
     private static final int REQUEST_PERMISSIONS = 100;
-
-
-
+    String[] menuSort = {"", ""};
+    ArrayList<Model_images> passedArray;
+    Boolean PASSING = false;
 
 
     public FoldersFragment() {
@@ -91,6 +90,35 @@ public class FoldersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+        //menuSort contains the [0]sortType and the [1]position of AL_MENU to be passed
+
+
+
+
+        if(this.getArguments().getStringArray("MenuSort")==null)
+        {
+            menuSort[0]=MediaStore.Images.Media.DATE_TAKEN;
+            Log.d("Bundle", "onCreateView: Null menuoSort, nothing bundles");
+        }
+        else
+        {
+            menuSort = this.getArguments().getStringArray("MenuSort");
+            passedArray = this.getArguments().getParcelableArrayList("passedArray");
+            PASSING = true;
+        }
+
+
+
+
+
+
+
+
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_folders, container, false);
 
@@ -214,6 +242,7 @@ public class FoldersFragment extends Fragment {
         }else {
             Log.e("Else","Else");
             fn_imagespath();
+            passBack();
         }
 
 
@@ -239,7 +268,20 @@ public class FoldersFragment extends Fragment {
 
         String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
 
-        final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
+        String orderBy = MediaStore.Images.Media.DATE_TAKEN;
+
+        if(PASSING==true)
+        {
+
+            orderBy = menuSort[0];
+
+        }
+
+
+
+
+
+        Log.d("Orderby:", "Orderby: "+ MediaStore.Images.Media.DATE_TAKEN);
         cursor = getContext().getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -310,6 +352,7 @@ public class FoldersFragment extends Fragment {
         obj_adapter = new Adapter_PhotosFolder(getContext(),al_images);
         gv_folder.setAdapter(obj_adapter);
         return al_images;
+
     }
 
 
@@ -324,6 +367,7 @@ public class FoldersFragment extends Fragment {
                 for (int i = 0; i < grantResults.length; i++) {
                     if (grantResults.length > 0 && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         fn_imagespath();
+                        passBack();
                     } else {
                         Toast.makeText(getActivity(), "The app was not allowed to read or write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
                     }
@@ -334,7 +378,33 @@ public class FoldersFragment extends Fragment {
 
 
 
+public void passBack(){
 
+     if(PASSING==true) {
+
+         int i = Integer.parseInt(menuSort[1]);
+/*
+         String folderPath = al_images.get(i).getStr_folderPath();
+         Log.d("list", folderPath);
+         Toast.makeText(getContext(), al_images.get(i).getStr_folderPath(), Toast.LENGTH_SHORT).show();
+
+
+         //new
+         Bundle bundle = new Bundle();
+         bundle.putInt("position", i);
+
+         PhotosFragment PhotosFragment = new PhotosFragment();
+         PhotosFragment.setArguments(bundle);
+
+         AppCompatActivity activity = (AppCompatActivity) getContext();
+         activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, PhotosFragment).addToBackStack(null).commit();*/
+
+
+     }
+
+
+
+    }
 
 
 

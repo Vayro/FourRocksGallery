@@ -8,8 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,6 +25,7 @@ import com.vayrotech.fourrocksgallery.DatabaseStuff.ModelDatabase;
 import com.vayrotech.fourrocksgallery.R;
 import com.vayrotech.fourrocksgallery.SelectedFragmentActivity;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -33,7 +39,7 @@ public class PhotosFragment extends Fragment  {
     private GridView gridView;
     GridViewAdapter adapter;
     ModelDatabase DB;
-
+    ArrayList<Model_images> this_al_images;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -70,6 +76,7 @@ public class PhotosFragment extends Fragment  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true); //set fragment-specific menu
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -90,13 +97,13 @@ public class PhotosFragment extends Fragment  {
 
         super.onCreate(savedInstanceState);
 
-
+        Log.d("AL_IMAGES TO STRING", FoldersFragment.al_images.toString());
         gridView = getView().findViewById(R.id.gv_photos);
         int_position = this.getArguments().getInt("position");
         adapter = new GridViewAdapter(getContext(), FoldersFragment.al_images, int_position, PhotosFragment.this);
         gridView.setAdapter(adapter);
         DB = new ModelDatabase(this.getContext()); //create the database object
-
+        this_al_images = FoldersFragment.al_images;
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,6 +143,14 @@ public class PhotosFragment extends Fragment  {
 
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.gallery_menu, menu);
+    }
+
+
+
     public void databaseUpdate(Map<String, String> dataMap){
         String dbPath = dataMap.get("path");
         String dbTitle =  dataMap.get("title");
@@ -160,6 +175,65 @@ public class PhotosFragment extends Fragment  {
                 // Toast.makeText(this.getContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
             }
         }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        String position = String.valueOf(int_position);
+        String[] menuSort = {"", position};
+
+        switch (item.getItemId()) {
+            case R.id.dateDescending:
+                //sort date ascending stuff here
+                menuSort[0] = MediaStore.Images.Media.DATE_TAKEN;
+                Toast.makeText(getActivity(), "Sorted by date (ascending)!", Toast.LENGTH_SHORT).show();
+                refreshFragment(menuSort);
+               // showImages("dateA");
+                return true;
+            case R.id.nameAscending:
+                //sort name ascending stuff here
+                menuSort[0] = "1";
+                Toast.makeText(getActivity(), "Sorted by name (ascending)!", Toast.LENGTH_SHORT).show();
+                refreshFragment(menuSort);
+              //  showImages("nameA");
+                return true;
+            case R.id.nameDescending:
+                //sort name descending stuff here
+                menuSort[0] = "2";
+                Toast.makeText(getActivity(), "Sorted by name (descending)!", Toast.LENGTH_SHORT).show();
+                refreshFragment(menuSort);
+               // showImages("nameD");
+                return true;
+
+        }
+
+        return true;
+    }
+
+    public void refreshFragment(String[] menuSort){
+        //sends back to folderFragment with new sort code, which should start a new PhotosFragment
+        //bundle URI and change fragment
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("MenuSort", menuSort);
+        bundle.putBoolean("passing", true);
+        bundle.putParcelableArrayList("passedArrayList", (ArrayList<? extends Parcelable>) this_al_images);
+        Log.d("menuSort", "MenuSort= "+ menuSort[0] + " " + menuSort[1]);
+        Log.d("this_al_images", this_al_images.toString());
+        FoldersFragment foldersFragment = new FoldersFragment();
+        foldersFragment.setArguments(bundle);
+
+        AppCompatActivity activity = (AppCompatActivity) getContext();
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, foldersFragment).addToBackStack(null).commit();
+
+
+
+
+    }
+
+
+
 
 
     }
