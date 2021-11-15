@@ -30,11 +30,11 @@ import java.util.List;
 
 public class SelectedFragmentActivity extends Fragment {
     private int mIS = 224;
-    //private String MP = "model_unquant.tflite";//my model from teachable machine
-    private String MP ="mobilenet_v1_1.0_224.tflite";//The pretrain model with 1000 classes from tensorflow
+    private String MP = "model_unquant.tflite";//my model from teachable machine
+    //private String MP ="mobilenet_v1_1.0_224.tflite";//The pretrain model with 1000 classes from tensorflow
 
-    //private String LP = "labels.txt";
-    private String LP = "labels_mobilenet_v1_224.txt";// the pretrain model labels from tensorflow
+    private String LP = "labels.txt";
+    //private String LP = "labels_mobilenet_v1_224.txt";// the pretrain model labels from tensorflow
     Classifier classifier;
     TextView TextView;
     Button classify;

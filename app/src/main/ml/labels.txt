@@ -10,3 +10,6 @@
 9 Car
 10 tv
 11 saxophone
+12 Wildlife
+13 Simpson
+14 Human
