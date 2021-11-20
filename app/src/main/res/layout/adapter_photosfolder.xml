@@ -13,13 +13,15 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:layout_height="match_parent"
-        android:background="@drawable/border">
+        android:background="@drawable/border"
+        android:elevation="10dp">
         <ImageView
             android:layout_width="150dp"
             android:layout_gravity="center"
             android:layout_height="150dp"
             android:padding="10dp"
-            android:id="@+id/iv_image"/>
+            android:id="@+id/iv_image"
+            android:elevation="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,13 +30,15 @@
             android:textStyle="bold"
             android:textColor="#82B1FF"
             android:layout_marginLeft="10dp"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:elevation="6dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_folder2"
             android:textColor="#82B1FF"
+            android:elevation="7dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="15dp"/>
@@ -44,6 +48,7 @@
         android:layout_width="match_parent"
         android:id="@+id/rl_select"
         android:alpha="0.5"
+        android:elevation="8dp"
         android:layout_height="match_parent">
 
     </RelativeLayout>
