@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,23 +25,28 @@ import android.graphics.drawable.BitmapDrawable;
 import android.widget.Toast;
 
 
+import com.vayrotech.fourrocksgallery.DatabaseStuff.ModelDatabase;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 
 public class SelectedFragmentActivity extends Fragment {
     private int mIS = 224;
-    private String MP = "model_unquant.tflite";//my model from teachable machine
-    //private String MP ="mobilenet_v1_1.0_224.tflite";//The pretrain model with 1000 classes from tensorflow
+    private String MP1 = "model_unquant.tflite";//my model from teachable machine
+    private String MP ="mobilenet_v1_1.0_224.tflite";//The pretrain model with 1000 classes from tensorflow
 
-    private String LP = "labels.txt";
-    //private String LP = "labels_mobilenet_v1_224.txt";// the pretrain model labels from tensorflow
+    private String LP1 = "labels.txt";
+    private String LP= "labels_mobilenet_v1_224.txt";// the pretrain model labels from tensorflow
     Classifier classifier;
     TextView TextView;
     Button classify;
     View view;
     ImageView selectedImage;
     Uri passedImageFrag;
+    ModelDatabase DB;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -110,7 +116,7 @@ public class SelectedFragmentActivity extends Fragment {
         //created stuff goes here
         selectedImage = getView().findViewById(R.id.selectedView);
         TextView=getView().findViewById(R.id.textView);
-
+        DB = new ModelDatabase(this.getContext()); //create the database object
         if (passedImageFrag != null) {
             selectedImage.setImageURI(passedImageFrag);
         } else
@@ -132,10 +138,19 @@ public class SelectedFragmentActivity extends Fragment {
                     List<Classifier.Recognition> result = classifier.recognizeImage(bitmap);
 
                     //Toast.makeText(this, result.get(0).toString(),Toast.LENGTH_SHORT).show();
-                    TextView.setText(result.get(0).toString());
+                    //for database update
+                    String textViewUpdate = result.get(0).toString();
+                    TextView.setText(textViewUpdate);
+                    databaseUpdate(textViewUpdate);
                 }
                 catch(Exception e){
-                    TextView.setText("Unknown");
+                    //TextView.setText("Unknown");
+
+                    try {
+                        classifier = new Classifier(getActivity().getAssets(),MP1, LP1, mIS);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
 
@@ -150,6 +165,33 @@ public class SelectedFragmentActivity extends Fragment {
 
 
     }
+
+
+
+    private void databaseUpdate(String dbClass){
+
+
+        File f = new File(passedImageFrag.getPath());
+        Date lastModified =new Date(f.lastModified());
+
+        String dbPath = passedImageFrag.getPath();
+        String dbTitle =  f.getName();
+        String dbDate = lastModified.toString();
+
+
+
+
+        DB.updateData(dbPath, dbTitle, dbDate, dbClass);
+        /*
+        if (checkinsertdata == true) {
+            Toast.makeText(this.getContext(), "New Entry Inserted in database", Toast.LENGTH_SHORT).show();
+            Log.d("datebase", "databaseUpdate: Path " + dbPath + "| Title " + dbTitle + "| Date " + dbDate + "| Classification " + dbClass);
+
+        } else {
+             Toast.makeText(this.getContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+        }*/
+    }
+
 
 
 

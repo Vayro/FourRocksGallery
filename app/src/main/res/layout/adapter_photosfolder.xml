@@ -13,7 +13,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:layout_height="match_parent"
-        android:background="@drawable/border"
+        android:background="@color/white"
         android:elevation="10dp">
         <ImageView
             android:layout_width="150dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_folder"
             android:textStyle="bold"
-            android:textColor="#82B1FF"
+            android:textColor="@color/black"
             android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:elevation="6dp"/>
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_folder2"
-            android:textColor="#82B1FF"
+            android:textColor="@color/black"
             android:elevation="7dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"

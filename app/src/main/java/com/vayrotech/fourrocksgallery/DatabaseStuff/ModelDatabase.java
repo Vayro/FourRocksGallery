@@ -40,6 +40,20 @@ public class ModelDatabase extends SQLiteOpenHelper {
     }
 
 
+    public boolean updateData(String path, String title, String date, String classification){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("path", path);
+        contentValues.put("title",title);
+        contentValues.put("date", date);
+        contentValues.put("classification", classification);
+        MyDB.execSQL("UPDATE tableimage SET classification=" + classification + " WHERE path ="+ path);
+        return true;
+
+
+    }
+
+
 
     public Cursor getData ()
     {
